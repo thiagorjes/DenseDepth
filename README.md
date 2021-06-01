@@ -12,10 +12,24 @@ A versão mais recente, porém instável [AdaBins](https://github.com/shariqfaro
 * [KITTI](http://www.cvlibs.net/datasets/kitti/): Copiar o "raw data" para a pasta '../kitti'. Esse metodo espera por "dense input depth maps", então precisa calcular um "depth [inpainting method](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)" nos dados do Lidar. 
 Para os experimentos, foi utilizado o script [Python](https://gist.github.com/ialhashim/be6235489a9c43c6d240e8331836586a) que reimplemento o código disponibilizado com o "NYU Depth V2 toolbox".
 
+## Preparando o Ambiente
+* Para utilizar é necessário ter o CUDA_10.0 (e Cudnn compatível) , Python 3.5 (ou superior), pip e virtualenv (para evitar problemas)
+* Execute o comando e todas as dependências serão instaladas (processo já testado):
+```
+./instalar_dependencias.sh 1
+```
+O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o CUDA 10.0 e Cudnn compatível instalados então rode o seguinte comando:
+```
+./instalar_dependencias.sh
+```
+
+
+
+
+
 ## Training (Precisa de uma Titan V)
 ```
 python train.py --data nyu --gpus 1 --bs 4
-
 ```
 
 
@@ -23,7 +37,6 @@ python train.py --data nyu --gpus 1 --bs 4
 * Baixe, mas não extraia o arquivo do [link](https://s3-eu-west-1.amazonaws.com/densedepth/nyu_test.zip) (1.4 GB). Então execute:
 ```
   python evaluate.py
-
 ```
 
 ## Reference
