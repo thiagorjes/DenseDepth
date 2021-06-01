@@ -43,6 +43,13 @@ O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o 
    deactivate
 ```
 
+## Visualizar imagens lado a lado - original/profundidade
+* Rode o seguinte comando para utilizar um vídeo e gerar imagens lado a lado comparando o frame original e a profundidade estimada:
+```
+python test_video.py --model nyu.h5 --input test_video.MOV
+```
+Obs.: test_video.MOV é algum vídeo de sua escolha.
+
 ## Reference
 Corresponding paper to cite:
 ```
