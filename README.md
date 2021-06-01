@@ -14,6 +14,8 @@ Para os experimentos, foi utilizado o script [Python](https://gist.github.com/ia
 
 ## Preparando o Ambiente
 * Para utilizar é necessário ter o CUDA_10.0 (e Cudnn compatível) , Python 3.5 (ou superior), pip e virtualenv (para evitar problemas)
+* Certifique-se de baixar as dependencias no [link](https://1drv.ms/u/s!AuWRnPR26byUmfRbqEF7468fDdHM1g?e=KoabLc)
+* Salve-as na pasta do projeto!
 * Execute o comando e todas as dependências serão instaladas (processo já testado):
 ```
 ./instalar_dependencias.sh 1
@@ -22,10 +24,6 @@ O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o 
 ```
 ./instalar_dependencias.sh
 ```
-
-
-
-
 
 ## Treinar (Precisa de uma Titan V)
 ```
