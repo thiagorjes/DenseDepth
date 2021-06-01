@@ -3,7 +3,7 @@
 
 A versão mais recente, porém instável [AdaBins](https://github.com/shariqfarooq123/AdaBins).
 
-## Pre-trained Models
+## Modelos Pré-Treinados
 * [NYU Depth V2](https://s3-eu-west-1.amazonaws.com/densedepth/nyu.h5) (165 MB)
 * [KITTI](https://s3-eu-west-1.amazonaws.com/densedepth/kitti.h5) (165 MB)
 
@@ -27,7 +27,7 @@ O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o 
 
 
 
-## Training (Precisa de uma Titan V)
+## Treinar (Precisa de uma Titan V)
 ```
    source venv/bin/activate
    python3 train.py --data nyu --gpus 1 --bs 4
@@ -35,7 +35,7 @@ O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o 
 ```
 
 
-## Evaluation
+## Avaliar
 * Baixe, mas não extraia o arquivo do [link](https://s3-eu-west-1.amazonaws.com/densedepth/nyu_test.zip) (1.4 GB). Então execute:
 ```
    source venv/bin/activate
@@ -50,7 +50,7 @@ python test_video.py --model nyu.h5 --input test_video.MOV
 ```
 Obs.: test_video.MOV é algum vídeo de sua escolha.
 
-## Reference
+## Referência aos autores
 Corresponding paper to cite:
 ```
 @article{Alhashim2018,
