@@ -29,7 +29,7 @@ O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o 
 
 ## Training (Precisa de uma Titan V)
 ```
-source venv/bin/activate
+   source venv/bin/activate
    python3 train.py --data nyu --gpus 1 --bs 4
    deactivate
 ```
