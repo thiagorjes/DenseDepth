@@ -29,14 +29,18 @@ O parametro 1 é para instalar CUDA e CUNN corretamente, se você já possuir o 
 
 ## Training (Precisa de uma Titan V)
 ```
-python train.py --data nyu --gpus 1 --bs 4
+source venv/bin/activate
+   python3 train.py --data nyu --gpus 1 --bs 4
+   deactivate
 ```
 
 
 ## Evaluation
 * Baixe, mas não extraia o arquivo do [link](https://s3-eu-west-1.amazonaws.com/densedepth/nyu_test.zip) (1.4 GB). Então execute:
 ```
-  python evaluate.py
+   source venv/bin/activate
+   python evaluate.py
+   deactivate
 ```
 
 ## Reference
