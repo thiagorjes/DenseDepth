@@ -42,9 +42,11 @@ def get_img_arr(image):
 video_name = args.input
 
 cap = cv2.VideoCapture(video_name)
-out_video_name = 'output.avi'
-fps = int(cap.get(cv2.CAP_PROP_FPS))
-out = cv2.VideoWriter(out_video_name, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, (1280, 480))
+cap.set(cv2.CAP_PROP_FPS, int(5))
+fps=int(cap.get(cv2.CAP_PROP_FPS))
+
+# out_video_name = 'output.avi'
+# out = cv2.VideoWriter(out_video_name, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, (1280, 480))
 
 
 def display_single_image(output, inputs=None, is_colormap=True):
@@ -71,20 +73,25 @@ def display_single_image(output, inputs=None, is_colormap=True):
 
     return img_set
 
+os.system("mkdir image_results")
+
 count = 0
 ret = True
+
 while ret:
     ret, image = cap.read()
     if ret is False:
         break
     img_arr = get_img_arr(image)
+    if count % fps == 0:
+        output = scale_up(2, predict(model, img_arr, batch_size=1))
+        pred = output.reshape(output.shape[1], output.shape[2], 1)
+        img_set = display_single_image(pred, img_arr)
+        plt.figure(figsize=(20, 10))
+        plt.imshow(img_set)
+        filename = 'img_' + str(count).zfill(4) + '.png'
+        plt.savefig(os.path.join('image_results', filename), bbox_inches='tight')
     count += 1
-    output = scale_up(2, predict(model, img_arr, batch_size=1))
-    pred = output.reshape(output.shape[1], output.shape[2], 1)
-    img_set = display_single_image(pred, img_arr)
-    plt.figure(figsize=(20, 10))
-    plt.imshow(img_set)
-    filename = 'img_' + str(count).zfill(4) + '.png'
-    plt.savefig(os.path.join('image_results', filename), bbox_inches='tight')
 
-
+os.system("ffmpeg -i image_results/img_%04d.png -c:v libx264 -vf fps=60 -pix_fmt yuv444p image_results/out.mp4")
+os.system("mplayer image_results/out.mp4")
