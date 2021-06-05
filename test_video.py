@@ -21,6 +21,15 @@ parser.add_argument('--model', default='nyu.h5', type=str, help='Trained Keras m
 parser.add_argument('--input', default='my_examples/*.jpg', type=str, help='Path to Video')
 args = parser.parse_args()
 
+video_name = args.input
+cap = cv2.VideoCapture(video_name)
+cap.set(cv2.CAP_PROP_FPS, int(5))
+fps=int(cap.get(cv2.CAP_PROP_FPS))
+# out_video_name = 'output.avi'
+# out = cv2.VideoWriter(out_video_name, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, (1280, 480))
+
+
+
 # Custom object needed for inference and training
 start = time.time()
 custom_objects = {'BilinearUpSampling2D': BilinearUpSampling2D, 'depth_loss_function': depth_loss_function}
@@ -38,15 +47,6 @@ def get_img_arr(image):
     im = cv2.resize(im, (640, 480))
     x = np.clip(np.asarray(im, dtype=float) / 255, 0, 1)
     return x
-
-video_name = args.input
-
-cap = cv2.VideoCapture(video_name)
-cap.set(cv2.CAP_PROP_FPS, int(5))
-fps=int(cap.get(cv2.CAP_PROP_FPS))
-
-# out_video_name = 'output.avi'
-# out = cv2.VideoWriter(out_video_name, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, (1280, 480))
 
 
 def display_single_image(output, inputs=None, is_colormap=True):
@@ -83,15 +83,12 @@ while ret:
     if ret is False:
         break
     img_arr = get_img_arr(image)
-    if count % fps == 0:
-        output = scale_up(2, predict(model, img_arr, batch_size=1))
-        pred = output.reshape(output.shape[1], output.shape[2], 1)
-        img_set = display_single_image(pred, img_arr)
-        plt.figure(figsize=(20, 10))
-        plt.imshow(img_set)
-        filename = 'img_' + str(count).zfill(4) + '.png'
-        plt.savefig(os.path.join('image_results', filename), bbox_inches='tight')
+    output = scale_up(2, predict(model, img_arr, batch_size=1))
+    pred = output.reshape(output.shape[1], output.shape[2], 1)
+    img_set = display_single_image(pred, img_arr)
+    img_out = img_set*255
+    filename = 'img_' + str(count).zfill(4) + '.png'
+    cv2.imwrite(os.path.join('image_results', filename),cv2.cvtColor(img_out.astype('float32'),cv2.COLOR_RGB2BGR))
     count += 1
 
-os.system("ffmpeg -i image_results/img_%04d.png -c:v libx264 -vf fps=60 -pix_fmt yuv444p image_results/out.mp4")
-os.system("mplayer image_results/out.mp4")
+os.system("ffmpeg -i image_results/img_%04d.png -c:v libx264 -pix_fmt yuv444p image_results/out.mp4 && mplayer image_results/out.mp4")
