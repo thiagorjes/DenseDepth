@@ -1,7 +1,7 @@
 
 ## [Estimativa de Profundidade de Alta Qualidade utilizando Camera Monocular via "Transfer Learning"](https://arxiv.org/abs/1812.11941)
 
-A versão mais recente, porém instável [AdaBins](https://github.com/shariqfarooq123/AdaBins).
+A versão mais recente [AdaBins](https://github.com/shariqfarooq123/AdaBins).
 
 ## Modelos Pré-Treinados
 * [NYU Depth V2](https://s3-eu-west-1.amazonaws.com/densedepth/nyu.h5) (165 MB)
